@@ -10,7 +10,6 @@ import java.util.Date;
 import java.util.List;
 
 public class Administrador {
-
     public void crearYGuardarEmpleado(int idEmpleado, String nombre, int tipoDocumento,
                                       String documento, Date fechaNacimiento, Date fechaIngreso,
                                       boolean estado, String cargo, double salario) {

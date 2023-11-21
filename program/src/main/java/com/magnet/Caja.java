@@ -1,8 +1,11 @@
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
+package com.magnet;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 public class Caja {
 
     public void crearYGuadarFactura(String numeroFactura, String descripcion, String monto) {
@@ -31,7 +34,7 @@ public class Caja {
     public List<Factura> consultarFacturas() {
         List<Factura> facturas = new ArrayList<>();
 
-        try (Connection connection = DriverManager.getConnection(URL, USUARIO, CONTRASEÑA)) {
+        try (Connection connection = ConexionBD.obtenerConexion()) {
             String sql = "SELECT * FROM Factura";
             try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
                 try (ResultSet resultSet = preparedStatement.executeQuery()) {

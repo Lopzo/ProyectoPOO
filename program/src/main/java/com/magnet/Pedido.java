@@ -1,3 +1,8 @@
+package com.magnet;
+
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
+
 class Pedido {
     private final StringProperty mesa;
     private final StringProperty plato;

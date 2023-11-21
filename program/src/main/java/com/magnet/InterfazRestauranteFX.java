@@ -1,3 +1,5 @@
+/*package com.magnet;
+
 import javafx.application.Application;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
@@ -95,4 +97,4 @@ public class InterfazRestauranteFX{
         alert.setContentText(mensaje);
         alert.showAndWait();
     }
-}
+}*/

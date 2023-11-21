@@ -1,7 +1,9 @@
+package com.magnet;
+
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
-public class Factura e {
+public class Factura {
     private final StringProperty numeroFactura;
     private final StringProperty descripcion;
     private final StringProperty monto;
