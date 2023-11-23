@@ -1,24 +1,20 @@
 package com.magnet;
 
-class Cocinero extends Empleado {
-    private String especialidad;
+public class Cocinero extends Usuario {
 
-    public Cocinero(int idEmpleado, String nombre, int tipoDocumento, String documento,
-                    Date fechaNacimiento, Date fechaIngreso, boolean estado, String especialidad) {
-        super(idEmpleado, nombre, tipoDocumento, documento, fechaNacimiento, fechaIngreso, estado);
-        this.especialidad = especialidad;
+    private Menu menu;
+    public Cocinero(String usuario, String contraseña, boolean estado) {
+        super(usuario, contraseña, estado);
     }
 
-    @Override
-    public String definirCargo() {
-        return "Cocinero";
+    public void agregarPlato(String nombrePlato, double precio, String receta)
+    {
+        Plato NuevoPlato = new Plato(nombrePlato, precio, receta);
+        menu.agregarPlato(NuevoPlato);
     }
 
-    public String getEspecialidad() {
-        return especialidad;
-    }
-
-    public void setEspecialidad(String especialidad) {
-        this.especialidad = especialidad;
+    public void manipularPedido(Pedido pedido)
+    {
+        
     }
 }

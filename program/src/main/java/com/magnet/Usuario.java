@@ -15,7 +15,22 @@ public abstract class Usuario {
         this.estado = estado;
     }
 
-    // Métodos getters y setters
+    public void setUsuario(String nuevoUsuario) {
+        this.usuario = nuevoUsuario;
+    }
+
+    // Método para establecer una nueva contraseña
+    public void setContraseña(String nuevaContraseña) {
+        this.contraseña = nuevaContraseña;
+    }
+    public String getUsuario() {
+        return this.usuario;
+    }
+
+    // Método para obtener la contraseña
+    public String getContraseña() {
+        return this.contraseña;
+    }
 
     // Método abstracto para definir el cargo (debe implementarse en las subclases)
     public boolean verificarAcceso(String usuario, String contraseña) {
