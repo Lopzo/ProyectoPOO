@@ -1,16 +1,17 @@
 package com.magnet;
 
 import java.sql.*;
+import java.util.ArrayList;
 import java.util.List;
 
 public class Pedido {
     private int mesa;
     private List<Plato> platos;
-    private String estado;
+    private String estado = "Solicitado";
 
-    public Pedido(int mesa, List<Plato> platos) {
+    public Pedido(int mesa, List<Plato> platos, String pedido) {
         this.mesa = mesa;
-        this.estado = "Solicitado";
+        this.estado = estado;
         this.platos = platos;
     }
 
@@ -94,23 +95,80 @@ public class Pedido {
         }
     }
 
-    // Método para obtener el ID del último pedido realizado en esa mesa
-    private int obtenerIdPedido(int idPedido) throws SQLException {
+    public void modificarEstadoPedido(int idPedido, String nuevoEstado) {
+        try (Connection connection = ConexionBD.obtenerConexion()) {
+            String updateEstadoQuery = "UPDATE Pedidos SET Estado = ? WHERE IdPedido = ?";
+            try (PreparedStatement pstmt = connection.prepareStatement(updateEstadoQuery)) {
+                pstmt.setString(1, nuevoEstado);
+                pstmt.setInt(2, idPedido);
+                pstmt.executeUpdate();
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            // Manejar la excepción según tus necesidades
+        }
+    }
+
+    public List<Pedido> obtenerListaPedidos() {
+        List<Pedido> listaPedidos = new ArrayList<>();
 
         try (Connection connection = ConexionBD.obtenerConexion()) {
-            String selectIdQuery = "SELECT TOP 1 IdPedido FROM Pedidos WHERE Mesa = ? ORDER BY IdPedido DESC";
+            String sql = "SELECT * FROM Pedidos";
+            try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+                try (ResultSet resultSet = preparedStatement.executeQuery()) {
+                    while (resultSet.next()) {
+                        int idPedido = resultSet.getInt("IdPedido");
+                        int mesa = resultSet.getInt("Mesa");
+                        String estado = resultSet.getString("Estado");
 
-            try (PreparedStatement pstmt = connection.prepareStatement(selectIdQuery)) {
-                pstmt.setInt(1, mesa);
+                        // Obtener detalles del pedido
+                        List<Plato> platos = consultarPlatosDePedido(idPedido);
 
-                try (ResultSet resultSet = pstmt.executeQuery()) {
-                    if (resultSet.next()) {
-                        idPedido = resultSet.getInt("IdPedido");
+                        // Crear un objeto Pedido
+                        Pedido pedido = new Pedido(mesa, platos, estado);
+
+                        // Agregar el pedido a la lista
+                        listaPedidos.add(pedido);
                     }
                 }
             }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            // Manejar la excepción según tus necesidades
         }
+        return listaPedidos;
+    }
 
-        return idPedido;
+
+    public List<Plato> consultarPlatosDePedido(int idPedido) {
+        List<Plato> platos = new ArrayList<>();
+    
+        try (Connection connection = ConexionBD.obtenerConexion()) {
+            String sql = "SELECT Menu.* FROM DetallePedido " +
+                         "INNER JOIN Menu ON DetallePedido.IdPlato = Menu.idPlato " +
+                         "WHERE DetallePedido.IdPedido = ?";
+            try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+                preparedStatement.setInt(1, idPedido);
+    
+                try (ResultSet resultSet = preparedStatement.executeQuery()) {
+                    while (resultSet.next()) {
+                        int numPlato = resultSet.getInt("idPlato");
+                        String nombrePlato = resultSet.getString("Plato");
+                        double precioPlato = resultSet.getDouble("Precio");
+                        String receta = resultSet.getString("Receta");
+    
+                        Plato plato = new Plato(numPlato, nombrePlato, precioPlato, receta);
+    
+                        // Agregar el plato a la lista
+                        platos.add(plato);
+                    }
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            // Manejar la excepción según tus necesidades
+        }
+    
+        return platos;
     }
 }

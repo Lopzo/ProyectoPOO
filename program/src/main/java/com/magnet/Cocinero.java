@@ -20,7 +20,7 @@ public class Cocinero extends Usuario {
         
     }
 
-    public void manipularPedido(Pedido pedido)
+    public void manipularPedido(int idPedido, String estado)
     {
         
     }
@@ -30,5 +30,17 @@ public class Cocinero extends Usuario {
         List<Plato> platos = menu.getMenu();
 
         return platos;
+    }
+
+    public Plato obtenerPlato(int idPlato)
+    {
+        Plato plato =  menu.consultarPlatoPorId(idPlato);
+
+        return plato;
+    }
+
+    public void eliminarPlato(int idPlato)
+    {
+        menu.eliminarPlato(idPlato);
     }
 }

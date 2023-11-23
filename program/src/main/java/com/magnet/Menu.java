@@ -108,4 +108,16 @@ public class Menu {
         return plato;
     }
 
+    public void eliminarPlato(int idPlato) {
+        try (Connection connection = ConexionBD.obtenerConexion()) {
+            String sql = "DELETE FROM Menu WHERE idPlato = ?";
+            try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+                preparedStatement.setInt(1, idPlato);
+                preparedStatement.executeUpdate();
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            // Manejar la excepción según tus necesidades
+        }
+    }
 }
