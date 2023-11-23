@@ -1,7 +1,6 @@
 package com.magnet;
 
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -9,8 +8,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Menu {
-
-    private List<Plato> platos;
 
     // Método para añadir un plato al menú
     public void agregarPlato(Plato plato) {
@@ -28,21 +25,27 @@ public class Menu {
         }
     }
 
-    public List<String> getMenuFromDatabase() {
+    public List<Plato> getMenu() {
 
-        List<String> menu = new ArrayList<>();
+        List<Plato> menu = new ArrayList<>();
 
         Connection connection = null;
 
         try {
             connection = ConexionBD.obtenerConexion();
         
-            String sql = "SELECT Plato,  FROM Menu";
+            String sql = "SELECT * FROM Menu";
         
             try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
                 try (ResultSet resultSet = preparedStatement.executeQuery()) {
-                    while (resultSet.next()) {
-                        menu.add(resultSet.getString("Plato"));
+                    while (resultSet.next()) {                       
+                        int numPlato = resultSet.getInt("idPlato");
+                        String nombrePlato = resultSet.getString("Plato");
+                        double precioPlato = resultSet.getDouble("Precio");
+                        String reseta = resultSet.getString("Receta");
+
+                        Plato plato = new Plato(numPlato,nombrePlato, precioPlato, reseta);
+                        menu.add(plato);
                     }
                 }
             }
@@ -64,24 +67,45 @@ public class Menu {
         return menu;        
     }
 
-    // Método para obtener el precio del menú
-    /*public double getPrecio() {
-        try (Connection connection = DriverManager.getConnection("jdbc:sqlserver://tu_servidor;databaseName=MealMagnet", "tu_usuario", "tu_contraseña")) {
-            String sql = "SELECT TOP (1) [Precio] FROM [MealMagnet].[dbo].[Menu]";
+    public Plato consultarPlatoPorId(int id) {
+        Plato plato = null;
+        Connection connection = null;
+    
+        try {
+            connection = ConexionBD.obtenerConexion();
+    
+            String sql = "SELECT * FROM Menu WHERE Id = ?";
+            
             try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+                preparedStatement.setInt(1, id);
+                
                 try (ResultSet resultSet = preparedStatement.executeQuery()) {
                     if (resultSet.next()) {
-                        this.precio = resultSet.getDouble("Precio");
+                        int numPlato = resultSet.getInt("idPlato");
+                        String nombrePlato = resultSet.getString("Plato");
+                        double precioPlato = resultSet.getDouble("Precio");
+                        String receta = resultSet.getString("Receta");
+    
+                        plato = new Plato(numPlato,nombrePlato, precioPlato, receta);
                     }
                 }
             }
         } catch (SQLException e) {
             e.printStackTrace();
             // Manejar la excepción según tus necesidades
+        } finally {
+            // Cerrar la conexión fuera del bloque try-with-resources
+            if (connection != null) {
+                try {
+                    connection.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                    // Manejar la excepción según tus necesidades
+                }
+            }
         }
-
-        return this.precio;
-    }*/
-
+    
+        return plato;
+    }
 
 }

@@ -20,6 +20,7 @@
       <TextField fx:id="usuarioField" />
       <PasswordField fx:id="contrasenaField" />
       <Button onAction="#personalButtonClick" text="Iniciar Sesión" />
+       <Button onAction="#volverAInicio" text="Volver" />
    </children>
    <padding>
       <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />

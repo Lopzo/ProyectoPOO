@@ -2,12 +2,9 @@ package com.magnet;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
-import javafx.geometry.Insets;
-import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
-import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -21,17 +18,14 @@ public class App extends Application {
     private static Scene scene;
     @Override
     public void start(Stage stage) throws IOException {
+        
         stage.setTitle("Magnet - Inicio");
 
         Label titleLabel = new Label("Magnet Gestion y Orden");
         titleLabel.setStyle("-fx-font-size: 24px; -fx-font-weight: bold;");
-        // Pantalla de Inicio
-        //setRoot("primary");
-
-        VBox vbox = new VBox(20);
 
         // Crear la escena principal
-        scene = new Scene(vbox, 640, 480);
+        scene = new Scene(loadFXML("Inicio"), 640, 480);
         stage.setScene(scene);
     
         // Mostrar la ventana principal

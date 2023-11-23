@@ -1,43 +1,86 @@
 package com.magnet;
 
+import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.SimpleBooleanProperty;
+import javafx.beans.property.SimpleDoubleProperty;
+import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
+
 public class Plato {
+    private final SimpleIntegerProperty numPlato;
+    private final StringProperty plato;
+    private final SimpleDoubleProperty precio;
+    private final StringProperty receta;
+    private final BooleanProperty seleccionado = new SimpleBooleanProperty(false);
 
-    private String plato;
-    private double precio;
-    private String receta;
-
-    public Plato(String plato, double precio, String receta) {
-        this.plato = plato;
-        this.precio = precio;
-        this.receta = receta;
+    public Plato(int numPlato,String plato, double precio, String receta) {
+        this.numPlato = new SimpleIntegerProperty(numPlato); 
+        this.plato = new SimpleStringProperty(plato);
+        this.precio = new SimpleDoubleProperty(precio);
+        this.receta = new SimpleStringProperty(receta);
     }
 
     // Getters y setters para los atributos
 
+    public int getNumPlato()
+    {
+        return numPlato.get();
+    }
+
     public String getPlato() {
-        return plato;
+        return plato.get();
     }
 
     public void setPlato(String plato) {
-        this.plato = plato;
+        this.plato.set(plato);
+    }
+
+    public StringProperty platoProperty() {
+        return plato;
     }
 
     public double getPrecio() {
-        return precio;
+        return precio.get();
     }
 
     public void setPrecio(double precio) {
-        this.precio = precio;
+        this.precio.set(precio);
+    }
+
+    public SimpleDoubleProperty precioProperty() {
+        return precio;
     }
 
     public String getReceta() {
-        return receta;
+        return receta.get();
     }
 
     public void setReceta(String receta) {
-        this.receta = receta;
+        this.receta.set(receta);
     }
 
-    // Otros métodos de la clase Plato, si es necesario
+    public StringProperty recetaProperty() {
+        return receta;
+    }
+
+
+    public boolean isSeleccionado() {
+        return seleccionado.get();
+    }
+
+    public void setSeleccionado(boolean seleccionado) {
+        this.seleccionado.set(seleccionado);
+    }
+
+    public BooleanProperty seleccionadoProperty() {
+        return seleccionado;
+    }
+
+    public SimpleIntegerProperty numPedidoProperty()
+    {
+
+        return numPlato;
+    }
 }
 

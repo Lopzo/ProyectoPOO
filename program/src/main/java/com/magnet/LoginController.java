@@ -1,5 +1,7 @@
 package com.magnet;
 
+import java.io.IOException;
+
 import javafx.fxml.FXML;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
@@ -21,5 +23,10 @@ public class LoginController {
         System.out.println("Contraseña: " + contrasenaField.getText());
 
         // Puedes agregar más lógica aquí según tus necesidades
+    }
+    @FXML
+    private void volverAInicio() throws IOException {
+        // Lógica para volver a la vista de inicio
+        App.setRoot("Inicio");
     }
 }
