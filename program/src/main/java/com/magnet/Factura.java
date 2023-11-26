@@ -1,18 +1,32 @@
 package com.magnet;
 
+import javafx.beans.property.SimpleDoubleProperty;
+import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
 public class Factura {
+    private final SimpleIntegerProperty idFactura; 
     private final StringProperty numeroFactura;
     private final StringProperty descripcion;
-    private final StringProperty monto;
+    private final SimpleDoubleProperty monto;
 
-    public Factura(String numeroFactura, String descripcion, String monto) {
+    public Factura(int idFactura,String numeroFactura, String descripcion, Double monto) {
+        this.idFactura = new SimpleIntegerProperty(idFactura);
         this.numeroFactura = new SimpleStringProperty(numeroFactura);
         this.descripcion = new SimpleStringProperty(descripcion);
-        this.monto = new SimpleStringProperty(monto);
+        this.monto = new SimpleDoubleProperty(monto);
     }
+
+    public SimpleIntegerProperty simpleIntProperty()
+    {
+        return idFactura;
+    }
+
+    public int getIdFactura()
+    {
+        return idFactura.get();
+    } 
 
     public String getNumeroFactura() {
         return numeroFactura.get();
@@ -38,15 +52,15 @@ public class Factura {
         this.descripcion.set(descripcion);
     }
 
-    public String getMonto() {
+    public Double getMonto() {
         return monto.get();
     }
 
-    public StringProperty montoProperty() {
+    public SimpleDoubleProperty montoProperty() {
         return monto;
     }
 
-    public void setMonto(String monto) {
+    public void setMonto(double monto) {
         this.monto.set(monto);
     }
 }

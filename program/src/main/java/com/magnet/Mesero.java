@@ -1,8 +1,9 @@
 package com.magnet;
 
 public class Mesero extends Usuario {
-    public Mesero(String usuario, String contraseña, boolean estado) {
-        super(usuario, contraseña, estado);
+    
+    public Mesero(int idUsuario,String usuario, String contraseña, boolean estado, int funcion) {
+        super(idUsuario,usuario, contraseña, estado, funcion);
     }
 
     public void modificarEstadoPedido()

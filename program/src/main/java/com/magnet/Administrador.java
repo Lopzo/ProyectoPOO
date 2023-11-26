@@ -1,45 +1,39 @@
 package com.magnet;
 
+import java.util.List;
+
 public class Administrador extends Usuario {
+    AdministracionDB administracion = new AdministracionDB();
 
-    public Administrador(String usuario, String contraseña, boolean estado) {
-        super(usuario, contraseña, estado);
+    public Administrador(int idUsuario,String usuario, String contraseña, boolean estado, int funcion) {
+        super(idUsuario,usuario, contraseña, estado, funcion);
     }
 
-    public void acceder(String usuario, String contraseña)
+
+    public String agregarUsuario(Usuario usuario)
     {
-        boolean paso = verificarAcceso(usuario, contraseña);
+        return administracion.insertarUsuario(usuario);
 
-        if(paso == true )
-        {
-            
-        }
+    }
 
-    } 
-
-    private void guadarUsuario()
+    public String editarUsuario(Usuario usuario)
     {
-        
-    }
-    private void cambiarCredenciales(Usuario usuario, String nuevoUsuario, String nuevaContraseña) {
-        usuario.setUsuario(nuevoUsuario);
-        usuario.setContraseña(nuevaContraseña);
+        return administracion.editarUsuario(usuario);
+
     }
 
-    // Método para solicitar y ver la información de todas las clases
-    private void verInformacion() {
-        // Puedes acceder a la información de las instancias de otras clases aquí
-        // Por ejemplo, si tienes instancias de Cocinero, Mesa, Mesero, Caja, puedes acceder a sus datos y métodos.
-
-        // Ejemplo:
-        // Cocinero cocinero = new Cocinero("cocinero1", "cocina123", true);
-        // System.out.println("Información del cocinero: " + cocinero.getUsuario() + ", " + cocinero.getContraseña());
-        // ... (hacer lo mismo para las otras clases)
+    public String borrarUsuario(int idUsuario)
+    {
+        return administracion.borrarUsuario(idUsuario);
     }
 
-    // Método para verificar las credenciales del administrador
-    private boolean verificarCredenciales(String usuario, String contraseña) {
-        return this.getUsuario().equals(usuario) && this.getContraseña().equals(contraseña);
+    public Usuario obtenerUsuario(int idUsuario)
+    {
+        return administracion.obtenerUsuario(idUsuario);
+    }
+
+    public List<Usuario> obtenerListaUsuarios()
+    {
+        return administracion.obtenerTodosLosUsuarios();
     }
 }
-

@@ -13,12 +13,14 @@ public class Plato {
     private final SimpleDoubleProperty precio;
     private final StringProperty receta;
     private final BooleanProperty seleccionado = new SimpleBooleanProperty(false);
+    private final BooleanProperty disponible;
 
-    public Plato(int numPlato,String plato, double precio, String receta) {
+    public Plato(int numPlato,String plato, double precio, String receta,boolean disponible) {
         this.numPlato = new SimpleIntegerProperty(numPlato); 
         this.plato = new SimpleStringProperty(plato);
         this.precio = new SimpleDoubleProperty(precio);
         this.receta = new SimpleStringProperty(receta);
+        this.disponible = new SimpleBooleanProperty(disponible);
     }
 
     // Getters y setters para los atributos
@@ -71,6 +73,20 @@ public class Plato {
 
     public void setSeleccionado(boolean seleccionado) {
         this.seleccionado.set(seleccionado);
+    }
+    
+    public void setDisponible(boolean disponible) {
+        this.disponible.set(disponible);
+    }
+
+    public boolean getDisponible()
+    {
+        return disponible.get();
+    }
+
+    public BooleanProperty disponibleProperty()
+    {
+        return disponible;
     }
 
     public BooleanProperty seleccionadoProperty() {

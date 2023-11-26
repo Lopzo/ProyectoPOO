@@ -11,7 +11,7 @@ import javafx.scene.control.cell.CheckBoxTableCell;
 import javafx.scene.control.cell.PropertyValueFactory;
 
 public class MenuController {
-    Menu menu = new Menu();
+    
    @FXML
     private TableView<Plato> tablaMenu;
 
@@ -30,8 +30,8 @@ public class MenuController {
     @FXML
     public void initialize() {
 
-        try{
-            
+       /* try{
+            Cliente cliente = new Cliente(2, "Cliente", " ", true, 0);
             columnaPlato.setCellValueFactory(cellData -> cellData.getValue().platoProperty());
             columnaPrecio.setCellValueFactory(cellData -> cellData.getValue().precioProperty().asObject());
 
@@ -49,7 +49,7 @@ public class MenuController {
         catch (Exception ex) 
         {
             System.err.println(ex.getMessage());
-        }
+        } */
 
     }
 

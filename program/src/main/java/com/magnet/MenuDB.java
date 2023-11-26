@@ -7,31 +7,63 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Menu {
+public class MenuDB {
 
     // Método para añadir un plato al menú
-    public void agregarPlato(Plato plato) {
-        try (Connection connection = ConexionBD.obtenerConexion()) {
-            String sql = "INSERT INTO [MealMagnet].[dbo].[Menu] ([Plato],[Precio], [Receta]) VALUES (?, ?, ?)";
+    public String agregarPlato(Plato plato) {
+        Connection connection = null;
+        try  
+        {
+            connection = ConexionBD.obtenerConexion();
+            String sql = "INSERT INTO [MealMagnet].[dbo].[Menu] ([Plato],[Precio], [Receta],[Disponible]) VALUES (?, ?, ?,?)";
             try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
                 preparedStatement.setString(1, plato.getPlato());
                 preparedStatement.setDouble(2, plato.getPrecio());
                 preparedStatement.setString(3, plato.getReceta());
+                preparedStatement.setBoolean(4, plato.getDisponible());
                 preparedStatement.executeUpdate();
             }
         } catch (SQLException e) {
             e.printStackTrace();
-            // Manejar la excepción según tus necesidades
+            return "Error al guardar el elemento";
         }
+        finally
+        {
+            ConexionBD.cerrarConexion(connection);    
+        }
+        return "El plato se agrado con exito";
     }
 
-    public List<Plato> getMenu() {
+    public String modificarPlato(Plato plato) {
+        Connection connection = null;
+        try {
+            connection = ConexionBD.obtenerConexion();
+            String sql = "UPDATE [MealMagnet].[dbo].[Menu] SET [Plato] = ?, [Precio] = ?, [Receta] = ?, [Disponible] = ? WHERE [idPlato] = ?";
+            try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+                preparedStatement.setString(1, plato.getPlato());
+                preparedStatement.setDouble(2, plato.getPrecio());
+                preparedStatement.setString(3, plato.getReceta());
+                preparedStatement.setBoolean(4, plato.getDisponible());
+                preparedStatement.setInt(5, plato.getNumPlato()); 
+                preparedStatement.executeUpdate();
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return "Error al modificar el plato";
+        } finally {
+            ConexionBD.cerrarConexion(connection);
+        }
+        return "El plato se modificó con éxito";
+    }
+
+    public List<Plato> obtenerMenu() {
 
         List<Plato> menu = new ArrayList<>();
 
         Connection connection = null;
 
-        try {
+        try 
+        {
             connection = ConexionBD.obtenerConexion();
         
             String sql = "SELECT * FROM Menu";
@@ -43,8 +75,8 @@ public class Menu {
                         String nombrePlato = resultSet.getString("Plato");
                         double precioPlato = resultSet.getDouble("Precio");
                         String reseta = resultSet.getString("Receta");
-
-                        Plato plato = new Plato(numPlato,nombrePlato, precioPlato, reseta);
+                        boolean disponible = resultSet.getBoolean("Disponible");
+                        Plato plato = new Plato(numPlato,nombrePlato, precioPlato, reseta, disponible);
                         menu.add(plato);
                     }
                 }
@@ -67,7 +99,7 @@ public class Menu {
         return menu;        
     }
 
-    public Plato consultarPlatoPorId(int id) {
+    public Plato obtenerPlato(int id) {
         Plato plato = null;
         Connection connection = null;
     
@@ -85,8 +117,8 @@ public class Menu {
                         String nombrePlato = resultSet.getString("Plato");
                         double precioPlato = resultSet.getDouble("Precio");
                         String receta = resultSet.getString("Receta");
-    
-                        plato = new Plato(numPlato,nombrePlato, precioPlato, receta);
+                        boolean disponible = resultSet.getBoolean("Disponible");
+                        plato = new Plato(numPlato,nombrePlato, precioPlato, receta, disponible);
                     }
                 }
             }

@@ -4,37 +4,39 @@ import java.util.List;
 
 public class Cocinero extends Usuario {
 
-    private Menu menu = new Menu();
-    public Cocinero(String usuario, String contraseña, boolean estado) {
-        super(usuario, contraseña, estado);
+    private MenuDB menu = new MenuDB();
+    private ManejoPedidosDB pedidos = new ManejoPedidosDB();
+    public Cocinero(int idUsuario, String usuario, String contraseña, boolean estado, int funcion) {
+        super(idUsuario,usuario, contraseña, estado, funcion);
     }
 
     public void agregarPlato(String nombrePlato, double precio, String receta)
     {
-        Plato NuevoPlato = new Plato(0,nombrePlato, precio, receta);
+        Boolean disponible = true;
+        Plato NuevoPlato = new Plato(0,nombrePlato, precio, receta, disponible);
         menu.agregarPlato(NuevoPlato);
     }
 
-    public void ObtenerListaPedidos()
+    public List<Pedido> ObtenerListaPedidos()
     {
-        
+        return pedidos.obtenerListaPedidos();
     }
 
-    public void manipularPedido(int idPedido, String estado)
+    public void prepararPedido(int idPedido, String estado)
     {
-        
+        pedidos.modificarEstadoPedido(idPedido, estado);
     }
 
     public List<Plato> ObtenerMenu()
     {
-        List<Plato> platos = menu.getMenu();
+        List<Plato> platos = menu.obtenerMenu();
 
         return platos;
     }
 
     public Plato obtenerPlato(int idPlato)
     {
-        Plato plato =  menu.consultarPlatoPorId(idPlato);
+        Plato plato =  menu.obtenerPlato(idPlato);
 
         return plato;
     }
