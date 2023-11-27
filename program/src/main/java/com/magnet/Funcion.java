@@ -13,7 +13,7 @@ public class Funcion {
         this.nombre = nombre;
     }
 
-    public static List<Funcion> crearListaFunciones() {
+    public static List<Funcion> listaFunciones() {
         List<Funcion> listaFunciones = new ArrayList<>();
 
         // Añadir funciones a la lista
@@ -24,4 +24,25 @@ public class Funcion {
         return listaFunciones;
     }
 
+    public static String getFuncionString (int num)
+    {
+        String funcion = null;
+        for (Funcion item : listaFunciones()) {
+            if(item.num == num)
+            {
+                funcion = item.nombre;
+            }
+        }
+        return funcion;
+    }
+
+    public int getNum()
+    {
+        return num;
+    }
+
+    public String getNombre()
+    {
+        return nombre;
+    }
 }

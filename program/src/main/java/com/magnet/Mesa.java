@@ -1,5 +1,9 @@
 package com.magnet;
 
+import javafx.beans.property.SimpleBooleanProperty;
+import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.SimpleStringProperty;
+
 public class Mesa {
     private int idMesa;
     private String mesaNum;
@@ -34,4 +38,31 @@ public class Mesa {
         this.meseroAsignado = mesero;
     }
 
+    public String getEstadoString(boolean estado)
+    {
+        String estadoString = "";
+        if(estado == true)
+        {
+            estadoString = "Ocupada";
+        }
+        else
+        {   
+            estadoString = "Disponible";
+        }
+
+        return estadoString;
+    }
+
+     public SimpleIntegerProperty getIdMesaProperty() {
+        return new SimpleIntegerProperty(idMesa);
+    }
+
+    public SimpleStringProperty getMesaNumProperty() {
+        return new SimpleStringProperty(mesaNum);
+    }
+
+    public SimpleStringProperty getEstadoProperty() {
+        String estadoString = getEstadoString(estado);
+        return new SimpleStringProperty(estadoString);
+    }
 }

@@ -1,5 +1,12 @@
 package com.magnet;
 
+import java.util.List;
+
+import javafx.beans.property.SetProperty;
+import javafx.beans.property.SimpleBooleanProperty;
+import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.SimpleStringProperty;
+
 // Clase abstracta Empleado
 public abstract class Usuario {
 
@@ -28,7 +35,7 @@ public abstract class Usuario {
         this.contraseña = nuevaContraseña;
     }
 
-    public boolean SetEstado(boolean estado)
+    public boolean setEstado(boolean estado)
     {
         return this.estado;
     }
@@ -61,8 +68,44 @@ public abstract class Usuario {
     {
         return this.idUsuario;
     }
-    // Método abstracto para definir el cargo (debe implementarse en las subclases)
-    public boolean verificarAcceso(String usuario, String contraseña) {
-        return this.usuario.equals(usuario) && this.contraseña.equals(contraseña) && this.estado;
+
+    public SimpleIntegerProperty getIdUsuarioProperty()
+    {
+        
+        return new SimpleIntegerProperty(idUsuario);
+    }
+    public SimpleStringProperty getUsuarioProperty() {
+        return new SimpleStringProperty(usuario);
+    }
+
+    public SimpleStringProperty getContraseñaProperty() {
+        return new SimpleStringProperty(contraseña);
+    }
+
+    public String getEstadoString(boolean estado)
+    {
+        String estadoString = "";
+        if(estado == true)
+        {
+            estadoString = "Activo";
+        }
+        else
+        {   
+            estadoString = "Inactivo";
+        }
+
+        return estadoString;
+    }
+
+    public SimpleStringProperty getEstadoProperty() {
+        String estadoString = getEstadoString(estado);
+        
+        return new SimpleStringProperty(estadoString);
+    }
+
+    public SimpleStringProperty getFuncionProperty() {
+        
+        String funcionString = Funcion.getFuncionString(funcion);
+        return new SimpleStringProperty(funcionString);
     }
 }

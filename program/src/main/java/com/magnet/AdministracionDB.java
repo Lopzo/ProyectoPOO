@@ -10,7 +10,7 @@ import java.util.List;
 public class AdministracionDB {
     public String insertarUsuario(Usuario usuario) {
         
-        String sql = "INSERT INTO Usuario (usuario, contraseña, estado, funcion) VALUES (?, ?, ?, ?)";
+        String sql = "INSERT INTO Usuarios (usuario, contraseña, estado, funcion) VALUES (?, ?, ?, ?)";
 
         Connection connection = null;
 
@@ -39,15 +39,16 @@ public class AdministracionDB {
     }
 
     public String editarUsuario(Usuario usuario) {
-        String sql = "UPDATE NombreDeTuTabla SET usuario = ?,contraseña = ?, estado = ?, funcion = ? WHERE idusuario = ?";
+        String sql = "UPDATE Usuarios SET usuario = ?,contraseña = ?, estado = ?, funcion = ? WHERE idusuario = ?";
         Connection connection = null;
         try {
             connection = ConexionBD.obtenerConexion();
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setString(1, usuario.getUsuario());
-            preparedStatement.setBoolean(2, usuario.getEstado());
-            preparedStatement.setInt(3, usuario.getFuncion());
-            preparedStatement.setString(4, usuario.getUsuario());
+            preparedStatement.setString(2, usuario.getContraseña());
+            preparedStatement.setBoolean(3, usuario.getEstado());
+            preparedStatement.setInt(4, usuario.getFuncion());
+            preparedStatement.setInt(5, usuario.getIdUsuario());
 
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
@@ -63,7 +64,7 @@ public class AdministracionDB {
 
     // Método para borrar un usuario existente en la base de datos
     public String borrarUsuario(int idUsuario) {
-        String sql = "DELETE FROM NombreDeTuTabla WHERE idUsuario = ?";
+        String sql = "DELETE FROM Usuarios WHERE idUsuario = ?";
         Connection connection = null;
         try 
         {
@@ -82,7 +83,7 @@ public class AdministracionDB {
 
     // Método para obtener un usuario por su nombre de usuario
     public Usuario obtenerUsuario(int idUsuario) {
-        String sql = "SELECT * FROM Usarios WHERE idUsuario = ?";
+        String sql = "SELECT * FROM Usuarios WHERE idUsuario = ?";
         Usuario usuario = null;
         Connection connection = null;
         try {
@@ -180,7 +181,7 @@ public class AdministracionDB {
     public boolean comprobacionNumeroAdministradores()
     {
         boolean validacion = false;
-        String sql = "SELECT COUNT(*) as numero_registros FROM nombre_de_tabla WHERE funcion = 1;";
+        String sql = "SELECT COUNT(*) as numero_registros FROM Usuarios WHERE funcion = 1;";
         Connection connection = null;
         try 
         {
@@ -208,7 +209,7 @@ public class AdministracionDB {
     public String crearPrimerAdmin()
     {
       
-            String sql = "INSERT INTO Usuario (usuario, contraseña, estado, funcion) VALUES (?, ?, ?, ?)";
+            String sql = "INSERT INTO Usuarios (usuario, contraseña, estado, funcion) VALUES (?, ?, ?, ?)";
 
             Connection connection = null;
 

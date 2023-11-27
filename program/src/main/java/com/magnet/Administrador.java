@@ -62,4 +62,28 @@ public class Administrador extends Usuario {
     {
         return administracion.comprobacionNumeroAdministradores();
     }
+
+    public Usuario agregarSegunFucion(String usuario, String contraseña, boolean estado, int funcion)
+    {
+        Usuario nuevoUsuario;
+        switch (funcion) {
+            case 1: 
+                nuevoUsuario = new Administrador(0, usuario, contraseña, estado, funcion);
+                break;
+            case 2:
+                nuevoUsuario = new Cocinero(0,usuario, contraseña, estado, funcion);
+                break;
+            case 3:
+                nuevoUsuario = new Mesero(0,usuario, contraseña, estado, funcion);
+                break;
+            case 4:
+                nuevoUsuario = new Cajero(0,usuario, contraseña, estado, funcion);
+                break;
+            default:
+                nuevoUsuario = null;
+                break;
+        }
+
+        return nuevoUsuario;
+    }
 }
