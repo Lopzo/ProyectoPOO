@@ -1,9 +1,5 @@
 package com.magnet;
 
-import java.util.List;
-
-import javafx.beans.property.SetProperty;
-import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 

@@ -50,6 +50,7 @@ public class PersonalController {
                     break;
                 case 3:
                     Login.setMesero(usuarioLog);
+                    App.setRoot("Mesero");
                     break;
                 case 4:
                     Login.setCajero(usuarioLog);

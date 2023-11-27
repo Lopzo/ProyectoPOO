@@ -74,7 +74,7 @@ public class MeserosController{
 
       private void cargarDatosPedido()
     {
-        List<Pedido> listaPedidos = mesero.obtenerListaPedidos(null);
+        List<Pedido> listaPedidos = mesero.obtenerListaPedidos();
         ObservableList<Pedido> pedidosObservable = FXCollections.observableArrayList(listaPedidos);
         pedidoTableView.getItems().clear();
         pedidoTableView.getItems().addAll(pedidosObservable);
@@ -99,11 +99,23 @@ public class MeserosController{
 
     private void entregarPedidoCocinero()
     {
-        
+        Pedido platoSeleccionado = pedidoTableView.getSelectionModel().getSelectedItem();
+
+        mesero.modificarEstadoPedido(platoSeleccionado.getIdPedido(), "Preparando");
+        updatePedidosTableView();
     }
 
     private void entregaPedidoCliente()
     {
+        Pedido platoSeleccionado = pedidoTableView.getSelectionModel().getSelectedItem();
 
+        mesero.modificarEstadoPedido(platoSeleccionado.getIdPedido(), "Entregado");
+        updatePedidosTableView();
+    }
+
+    private void updatePedidosTableView()
+    {
+        ObservableList<Pedido> pedidos = FXCollections.observableArrayList(mesero.obtenerListaPedidos());
+        pedidoTableView.setItems(pedidos);
     }
 }

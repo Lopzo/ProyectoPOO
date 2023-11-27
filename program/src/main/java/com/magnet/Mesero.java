@@ -38,21 +38,13 @@ public class Mesero extends Usuario {
         }
     }
 
-    public String modificarEstadoPedido(Mesa mesa, int idPedido, String nuevoEstado) {
-        if (mesasAsignadas.contains(mesa)) {
+    public String modificarEstadoPedido(int idPedido, String nuevoEstado) {
             manejoPedidos.modificarEstadoPedido(idPedido, nuevoEstado);
             return "Se ha modificado el estado del pedido";
-        } else {
-            return "Esta mesa no está asignada al mesero.";
-        }
     }
 
-    public List<Pedido> obtenerListaPedidos(Mesa mesa) {
-        if (mesasAsignadas.contains(mesa)) {
-            return manejoPedidos.obtenerListaPedidos();
-        } else {
-            return new ArrayList<>(); // Devuelve una lista vacía si la mesa no está asignada al mesero
-        }
+    public List<Pedido> obtenerListaPedidos() {
+        return manejoPedidos.obtenerListaPedidos();  
     }
 
     public List<Mesa> obtenerMesasAsignadas() {

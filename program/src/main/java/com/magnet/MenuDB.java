@@ -98,6 +98,12 @@ public class MenuDB {
         
         return menu;        
     }
+    
+    public List<Plato> obtenerClienteMenu()
+    {
+            return obtenerMenu();
+    }
+
 
     public Plato obtenerPlato(int id) {
         Plato plato = null;
