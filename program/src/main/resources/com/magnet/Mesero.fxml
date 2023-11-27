@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="504.0" prefWidth="728.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <SplitPane dividerPositions="0.6363636363636364" prefHeight="507.0" prefWidth="728.0">
+        <items>
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
+               <children>
+                  <TableView fx:id="pedidoTableView" layoutY="3.0" prefHeight="495.0" prefWidth="459.0">
+                    <columns>
+                      <TableColumn fx:id="idColumn" prefWidth="75.0" text="Id" />
+                      <TableColumn fx:id="mesaColumn" prefWidth="75.0" text="Mesa" />
+                        <TableColumn fx:id="estadoColumn" prefWidth="141.0" text="Estado" />
+                        <TableColumn fx:id="precioTotalColumn" prefWidth="164.0" text="Precio total" />
+                    </columns>
+                  </TableView>
+               </children>
+            </AnchorPane>
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
+               <children>
+                  <SplitPane dividerPositions="0.33468559837728196" layoutY="2.0" orientation="VERTICAL" prefHeight="495.0" prefWidth="261.0">
+                    <items>
+                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
+                           <children>
+                              <Label layoutX="76.0" layoutY="14.0" text="Opciones de pedido" />
+                              <Button fx:id="verPedidoButton" layoutX="93.0" layoutY="40.0" mnemonicParsing="false" text="Ver pedido" />
+                              <Button fx:id="entregarCocineroButton" layoutX="71.0" layoutY="81.0" mnemonicParsing="false" text="Entregar a cocinero" />
+                              <Button fx:id="entregarClienteButton" layoutX="77.0" layoutY="123.0" mnemonicParsing="false" text="Entregar a cliente" />
+                           </children>
+                        </AnchorPane>
+                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
+                           <children>
+                              <TableView fx:id="detallePedidoTableView" layoutX="4.0" layoutY="4.0" prefHeight="318.0" prefWidth="252.0">
+                                <columns>
+                                  <TableColumn fx:id="idDetalleColumn" prefWidth="75.0" text="Id" />
+                                  <TableColumn fx:id="platoColumn" prefWidth="91.0" text="Plato" />
+                                    <TableColumn fx:id="precioColumn" prefWidth="85.0" text="Precio" />
+                                </columns>
+                              </TableView>
+                           </children>
+                        </AnchorPane>
+                    </items>
+                  </SplitPane>
+               </children>
+            </AnchorPane>
+        </items>
+      </SplitPane>
+   </children>
+</VBox>

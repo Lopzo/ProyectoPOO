@@ -2,12 +2,17 @@ package com.magnet;
 
 import java.util.List;
 
+import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.SimpleStringProperty;
+
 public class Pedido {
+    private int idPedido;
     private int mesa;
     private List<Plato> platos;
     private String estado;
 
-    public Pedido(int mesa, List<Plato> platos, String estado) {
+    public Pedido(int idPedido,int mesa, List<Plato> platos, String estado) {
+        this.idPedido = idPedido;
         this.mesa = mesa;
         this.estado = estado;
         this.platos = platos;
@@ -39,7 +44,17 @@ public class Pedido {
     public void setEstado(String estado) {
         this.estado = estado;
     }
-        
+    
+    public int getIdPedido()
+    {
+        return idPedido;
+    }
+
+    public void setIdPedido(int idPedido)
+    {
+        this.idPedido = idPedido;
+    }
+
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("Pedido {");
@@ -49,4 +64,18 @@ public class Pedido {
         sb.append("}");
         return sb.toString();
     }
+
+        // Propiedades adicionales sin alterar los atributos
+    public SimpleIntegerProperty idPedidoProperty() {
+        return new SimpleIntegerProperty(idPedido);
+    }
+
+    public SimpleIntegerProperty mesaProperty() {
+        return new SimpleIntegerProperty(mesa);
+    }
+
+    public SimpleStringProperty estadoProperty() {
+        return new SimpleStringProperty(estado);
+    }
+
 }

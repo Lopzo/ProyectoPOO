@@ -20,6 +20,15 @@ public class Login {
         return alerta;
     }
     
+    public static void errorUsuarioIngreso()
+    {
+        Alert alerta = new Alert(AlertType.WARNING);    
+        alerta.setTitle("Error de autenticacion");
+        alerta.setHeaderText(null);
+        alerta.setContentText("El usuario o contraseña son incorrectos.");
+        alerta.showAndWait();
+    }
+
     public static void setAdministrador(Usuario usuario)
     { 
         Login.administrador = new Administrador(usuario.getIdUsuario(), usuario.getUsuario(), usuario.getContraseña(), usuario.getEstado(), usuario.getFuncion());

@@ -97,10 +97,11 @@ public class MesasDB {
 
                 try (ResultSet resultSet = preparedStatement.executeQuery()) {
                     if (resultSet.next()) {
-                        mesa = new Mesa();
-                        mesa.setIdMesa(resultSet.getInt("idMesa"));
-                        mesa.setMesaNum(resultSet.getString("Mesa"));
-                        mesa.setEstado(resultSet.getBoolean("Estado"));
+                        
+                        idMesa  = resultSet.getInt("idMesa");
+                        String mesaNum = resultSet.getString("Mesa");
+                        Boolean estado = resultSet.getBoolean("Estado");
+                        mesa = new Mesa(idMesa, mesaNum, estado);
                     }
                 }
             }
@@ -117,17 +118,17 @@ public class MesasDB {
         String sql = "SELECT * FROM Mesa";
         Connection connection = null;
         List<Mesa> listaMesas = new ArrayList<>();
-
+        Mesa mesa = null;
         try {
             connection = ConexionBD.obtenerConexion();
             try (PreparedStatement preparedStatement = connection.prepareStatement(sql);
                  ResultSet resultSet = preparedStatement.executeQuery()) {
 
                 while (resultSet.next()) {
-                    Mesa mesa = new Mesa();
-                    mesa.setIdMesa(resultSet.getInt("idMesa"));
-                    mesa.setMesaNum(resultSet.getString("Mesa"));
-                    mesa.setEstado(resultSet.getBoolean("Estado"));
+                    int idMesa  = resultSet.getInt("idMesa");
+                    String mesaNum = resultSet.getString("Mesa");
+                    Boolean estado = resultSet.getBoolean("Estado");
+                    mesa = new Mesa(idMesa, mesaNum, estado);
                     listaMesas.add(mesa);
                 }
             }

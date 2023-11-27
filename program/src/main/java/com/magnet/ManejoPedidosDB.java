@@ -131,7 +131,7 @@ public class ManejoPedidosDB {
                         List<Plato> platos = consultarPlatosDePedido(idPedido);
 
                         // Crear un objeto Pedido
-                        Pedido pedido = new Pedido(mesa, platos, estado);
+                        Pedido pedido = new Pedido(idPedido	,mesa, platos, estado);
 
                         // Agregar el pedido a la lista
                         listaPedidos.add(pedido);
@@ -177,5 +177,38 @@ public class ManejoPedidosDB {
         }
     
         return platos;
+    }
+
+    public List<Pedido> obtenerPedidosPorEstado(String estado) {
+        List<Pedido> pedidosPorEstado = new ArrayList<>();
+    
+        try (Connection connection = ConexionBD.obtenerConexion()) {
+            String sql = "SELECT * FROM Pedidos WHERE Estado = ?";
+            try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+                preparedStatement.setString(1, estado);
+    
+                try (ResultSet resultSet = preparedStatement.executeQuery()) {
+                    while (resultSet.next()) {
+                        int idPedido = resultSet.getInt("IdPedido");
+                        int mesa = resultSet.getInt("Mesa");
+                        String estadoPedido = resultSet.getString("Estado");
+    
+                        // Obtener detalles del pedido
+                        List<Plato> platos = consultarPlatosDePedido(idPedido);
+    
+                        // Crear un objeto Pedido
+                        Pedido pedido = new Pedido(idPedido,mesa, platos, estadoPedido);
+    
+                        // Agregar el pedido a la lista
+                        pedidosPorEstado.add(pedido);
+                    }
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            // Manejar la excepción según tus necesidades
+        }
+    
+        return pedidosPorEstado;
     }
 }

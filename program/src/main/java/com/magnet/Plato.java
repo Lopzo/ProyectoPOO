@@ -1,5 +1,7 @@
 package com.magnet;
 
+import java.util.List;
+
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleDoubleProperty;
@@ -98,5 +100,6 @@ public class Plato {
 
         return numPlato;
     }
+
 }
 

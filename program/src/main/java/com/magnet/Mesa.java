@@ -10,6 +10,13 @@ public class Mesa {
     private boolean estado; 
     private Mesero meseroAsignado;
 
+    public Mesa(int idMesa, String mesaNum, Boolean estado)
+    {
+        this.idMesa = idMesa;
+        this.mesaNum = mesaNum;
+        this.estado = estado;
+    }
+
     public int getIdMesa() {
         return idMesa;
     }

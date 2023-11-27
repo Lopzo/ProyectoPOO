@@ -4,7 +4,9 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TableColumn;
@@ -153,14 +155,6 @@ public class AdministracionController {
         });
     }
 
-    private Funcion obtenerFuncionPorId(Integer idFuncion) {
-        List<Funcion> listaFunciones = Funcion.listaFunciones();
-        return listaFunciones.stream()
-                .filter(funcion -> funcion.getNum() == idFuncion)
-                .findFirst()
-                .orElse(null);
-    }
-
     private void agregarUsuario() {
         String usuario = usuarioTextField.getText();
         String contraseña = contraseñaTextField.getText();
@@ -212,6 +206,10 @@ public class AdministracionController {
             // Obtener el ID del usuario
             int idUsuario = usuarioSeleccionado.getIdUsuario();
 
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+            alert.setTitle("Confirmación de borrado");
+            alert.setHeaderText("¿Estás seguro de que deseas borrar este usuario?");
+            alert.setContentText("Esta acción no se puede deshacer.");
             // Llamar al método de Administrador para borrar el usuario
             administrador.borrarUsuario(idUsuario);
 
@@ -221,14 +219,62 @@ public class AdministracionController {
     }
 
     private void agregarMesa() {
-        // Lógica para agregar una mesa
+        String numeroMesa = numeroMesaTextField.getText();
+        boolean disponible = disponibleTextField.isSelected();
+
+        Mesa nuevaMesa = new Mesa(0,numeroMesa, disponible);
+
+        // Llamar al método de Administrador para agregar la mesa
+        administrador.agregarMesa(nuevaMesa);
+
+        // Actualizar la tabla de mesas
+        cargarDatosMesas();
     }
 
     private void editarMesa() {
-        // Lógica para editar una mesa
+        Mesa mesaSeleccionada = mesasTableView.getSelectionModel().getSelectedItem();
+
+        if (mesaSeleccionada != null) {
+            // Obtener datos de los campos de texto y CheckBox
+            String nuevoNumeroMesa = numeroMesaTextField.getText();
+            boolean nuevoDisponible = disponibleTextField.isSelected();
+
+            // Actualizar los datos de la mesa con los datos de los campos de texto y CheckBox
+            mesaSeleccionada.setMesaNum((nuevoNumeroMesa != null) ? nuevoNumeroMesa : mesaSeleccionada.getMesaNum());
+            
+            // Llamar al método de Administrador para editar la mesa
+            administrador.editarMesa(mesaSeleccionada);
+
+            // Actualizar la tabla de mesas
+            cargarDatosMesas();
+        }
     }
 
     private void borrarMesa() {
-        // Lógica para borrar una mesa
+        // Obtener la mesa seleccionada en la tabla
+        Mesa mesaSeleccionada = mesasTableView.getSelectionModel().getSelectedItem();
+
+        if (mesaSeleccionada != null) {
+            // Obtener el ID de la mesa
+            int idMesa = mesaSeleccionada.getIdMesa();
+
+            // Mostrar un diálogo de confirmación antes de borrar la mesa
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+            alert.setTitle("Confirmación de borrado");
+            alert.setHeaderText("¿Estás seguro de que deseas borrar esta mesa?");
+            alert.setContentText("Esta acción no se puede deshacer.");
+
+            // Esperar a que el usuario confirme
+            ButtonType result = alert.showAndWait().orElse(ButtonType.CANCEL);
+
+            if (result == ButtonType.OK) {
+                // Llamar al método de Administrador para borrar la mesa
+                administrador.borrarMesa(idMesa);
+
+                // Actualizar la tabla de mesas
+                cargarDatosMesas();
+             }
+        }
     }
+
 }

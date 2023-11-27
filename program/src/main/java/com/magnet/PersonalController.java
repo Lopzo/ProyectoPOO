@@ -35,26 +35,36 @@ public class PersonalController {
          String contrasena = contrasenaPasswordField.getText();
 
          Usuario usuarioLog  =Login.Ingresar(usuario, contrasena);
+        
+         if(usuarioLog != null)
+         {
 
-         switch (usuarioLog.getFuncion()) {
-            case 1:
-                Login.setAdministrador(usuarioLog);
-                App.setRoot("Administrador");
-                break;
-            case 2:
-                Login.setCocinero(usuarioLog);
-                break;
-            case 3:
-                Login.setMesero(usuarioLog);
-                break;
-            case 4:
-                Login.setCajero(usuarioLog);
-                break;
-         
-            default:
-                Login.errorUsuario();
-                break;
-         }
+            switch (usuarioLog.getFuncion()) {
+                case 1:
+                    Login.setAdministrador(usuarioLog);
+                    App.setRoot("Administrador");
+                    break;
+                case 2:
+                    Login.setCocinero(usuarioLog);
+                    App.setRoot("Cocinero");
+                    break;
+                case 3:
+                    Login.setMesero(usuarioLog);
+                    break;
+                case 4:
+                    Login.setCajero(usuarioLog);
+                    break;
+            
+                default:
+                    Login.errorUsuario();
+                    break;
+            }
+        }
+        else
+        {
+            
+            Login.errorUsuarioIngreso();
+        }
     }
 
     // Este método se llamará cuando se haga clic en el botón "Salir"

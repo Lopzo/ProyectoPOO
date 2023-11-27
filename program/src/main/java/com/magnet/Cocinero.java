@@ -19,7 +19,7 @@ public class Cocinero extends Usuario {
 
     public List<Pedido> ObtenerListaPedidos()
     {
-        return pedidos.obtenerListaPedidos();
+        return pedidos.obtenerPedidosPorEstado("Preparando");
     }
 
     public void prepararPedido(int idPedido, String estado)

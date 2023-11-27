@@ -18,36 +18,38 @@ public class App extends Application {
     private static Scene scene;
     @Override
     public void start(Stage stage) throws IOException {
-        stage.setTitle("Magnet - Inicio");
-
-        Label titleLabel = new Label("Magnet Gestion y Orden");
-        titleLabel.setStyle("-fx-font-size: 24px; -fx-font-weight: bold;");
-
-        // Obtener el modo de depuración
-        String debugMode = getParameters().getRaw().get(0);
-
-        ///try {
-            // Cargar y mostrar la vista correspondiente al modo de depuración
-           
-            switch (debugMode) {
-                case "Restaurante_debug":
-                    loadAndShowView("Personal");
-                    break;
-                case "Cliente_debug":
-                    loadAndShowView("Cliente");
-                    break;
-                default:
-                    loadAndShowView("Error");
-                    break;
-            }
-
-            // Mostrar la ventana principal
-            stage.setScene(scene);
-            stage.show();
-       /*  } catch (IOException e) {
-            // Mostrar mensaje de error en la terminal
+        try {
             
-        }*/
+            stage.setTitle("Magnet - Inicio");
+
+            Label titleLabel = new Label("Magnet Gestion y Orden");
+            titleLabel.setStyle("-fx-font-size: 24px; -fx-font-weight: bold;");
+
+            // Obtener el modo de depuración
+            String debugMode = getParameters().getRaw().get(0);
+
+            ///try {
+                // Cargar y mostrar la vista correspondiente al modo de depuración
+            
+                switch (debugMode) {
+                    case "Restaurante_debug":
+                        loadAndShowView("Personal");
+                        break;
+                    case "Cliente_debug":
+                        loadAndShowView("Cliente");
+                        break;
+                    default:
+                        loadAndShowView("Error");
+                        break;
+                }
+
+                // Mostrar la ventana principal
+                stage.setScene(scene);
+                stage.show();
+            } catch (IOException e) {
+                e.printStackTrace(); 
+            
+            }
     }
 
     private void loadAndShowView(String viewName) throws IOException {
