@@ -4,6 +4,7 @@ import java.util.List;
 
 public class Administrador extends Usuario {
     AdministracionDB administracion = new AdministracionDB();
+    MesasDB mesas = new MesasDB();
 
     public Administrador(int idUsuario,String usuario, String contraseña, boolean estado, int funcion) {
         super(idUsuario,usuario, contraseña, estado, funcion);
@@ -35,5 +36,30 @@ public class Administrador extends Usuario {
     public List<Usuario> obtenerListaUsuarios()
     {
         return administracion.obtenerTodosLosUsuarios();
+    }
+
+    public String agregarMesa(Mesa mesa) {
+        return mesas.insertarMesa(mesa);
+    }
+
+    public String editarMesa(Mesa mesa) {
+        return mesas.editarMesa(mesa);
+    }
+
+    public String borrarMesa(int idMesa) {
+        return mesas.borrarMesa(idMesa);
+    }
+
+    public Mesa obtenerMesa(int idMesa) {
+        return mesas.obtenerMesa(idMesa);
+    }
+
+    public List<Mesa> obtenerListaMesas() {
+        return mesas.obtenerTodasLasMesas();
+    }
+    
+    public boolean verificarAdministrador()
+    {
+        return administracion.comprobacionNumeroAdministradores();
     }
 }

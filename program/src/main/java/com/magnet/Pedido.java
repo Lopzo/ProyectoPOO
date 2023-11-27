@@ -39,4 +39,14 @@ public class Pedido {
     public void setEstado(String estado) {
         this.estado = estado;
     }
+        
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("Pedido {");
+        sb.append("Mesa: ").append(mesa);
+        sb.append(", Platos: ").append(platos);
+        sb.append(", Estado: ").append(estado);
+        sb.append("}");
+        return sb.toString();
+    }
 }

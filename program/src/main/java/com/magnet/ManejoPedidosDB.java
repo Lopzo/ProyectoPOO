@@ -44,7 +44,7 @@ public class ManejoPedidosDB {
         } 
         catch (SQLException e) {
             e.printStackTrace();
-            return "Error en la consulta";
+            return "Error en al generar el pedido";
         }
         finally
         {

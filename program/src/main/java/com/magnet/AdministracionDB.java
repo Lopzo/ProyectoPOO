@@ -9,41 +9,33 @@ import java.util.List;
 
 public class AdministracionDB {
     public String insertarUsuario(Usuario usuario) {
-        boolean administradorCreado = comprobacionNumeroAdministradores();
         
-        if(administradorCreado == true)
+        String sql = "INSERT INTO Usuario (usuario, contraseña, estado, funcion) VALUES (?, ?, ?, ?)";
+
+        Connection connection = null;
+
+        try 
         {
-            return "No puede crear un administrador";       
-        }
-        else
+            connection = ConexionBD.obtenerConexion();
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+
+            preparedStatement.setString(1, usuario.getUsuario());
+            preparedStatement.setString(2, usuario.getContraseña());
+            preparedStatement.setBoolean(3, usuario.getEstado());
+            preparedStatement.setInt(4, usuario.getFuncion());
+
+            preparedStatement.executeUpdate();
+        
+        } catch (SQLException e) {
+            e.printStackTrace();
+            // Manejar la excepción según tus necesidades
+            return "Se a producido un error durante la ejecucion";
+        } 
+        finally
         {
-            String sql = "INSERT INTO Usuario (usuario, contraseña, estado, funcion) VALUES (?, ?, ?, ?)";
-
-            Connection connection = null;
-
-            try 
-            {
-                connection = ConexionBD.obtenerConexion();
-                PreparedStatement preparedStatement = connection.prepareStatement(sql);
-
-                preparedStatement.setString(1, usuario.getUsuario());
-                preparedStatement.setString(2, usuario.getContraseña());
-                preparedStatement.setBoolean(3, usuario.getEstado());
-                preparedStatement.setInt(4, usuario.getFuncion());
-
-                preparedStatement.executeUpdate();
-            
-            } catch (SQLException e) {
-                e.printStackTrace();
-                // Manejar la excepción según tus necesidades
-                return "Se a producido un error durante la ejecucion";
-            } 
-            finally
-            {
-                ConexionBD.cerrarConexion(connection);
-            }
-            return "El usuario se a creado con exito";
+            ConexionBD.cerrarConexion(connection);
         }
+        return "El usuario se a creado con exito";
     }
 
     public String editarUsuario(Usuario usuario) {
@@ -167,9 +159,6 @@ public class AdministracionDB {
                         case 4:
                             usuario = new Cajero(idUsuario, NombreUsuario, contraseña, estado, funcion);
                             break;
-                        case 5:
-                            usuario = new Cliente(idUsuario, NombreUsuario, contraseña, estado, funcion);
-                            break;
                         default:
                             usuario = null;
                             break;
@@ -215,4 +204,31 @@ public class AdministracionDB {
 
         return validacion;
     }
+
+    public String crearPrimerAdmin()
+    {
+      
+            String sql = "INSERT INTO Usuario (usuario, contraseña, estado, funcion) VALUES (?, ?, ?, ?)";
+
+            Connection connection = null;
+
+            try 
+            {
+                connection = ConexionBD.obtenerConexion();
+                PreparedStatement preparedStatement = connection.prepareStatement(sql);
+                preparedStatement.executeUpdate();
+            
+            } catch (SQLException e) {
+                e.printStackTrace();
+                // Manejar la excepción según tus necesidades
+                return "Se a producido un error durante la ejecucion";
+            } 
+            finally
+            {
+                ConexionBD.cerrarConexion(connection);
+            }
+
+            return "El administrador se a creado con exito"; 
+        }
+    
 }
