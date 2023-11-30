@@ -110,8 +110,6 @@ public class CocinaController {
         entregarButton.setOnAction(event -> entregarPedido());
         verDetallesPedidoButton.setOnAction(event -> verDetallesPedido());
         
-        ObservableList<String> opcionesDisponible = FXCollections.observableArrayList("Disponible", "No Disponible");
-        disponibleChoiceBox.setItems(opcionesDisponible);
 
         cargarDatosMenu();
         cargarDatosPedido();

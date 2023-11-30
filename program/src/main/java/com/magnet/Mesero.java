@@ -12,10 +12,10 @@ public class Mesero extends Usuario {
         super(idUsuario, usuario, contraseña, estado, funcion);
     }
 
-    public void asignarMesa(Mesa mesa) {
+  /*  public void asignarMesa(Mesa mesa) {
         mesasAsignadas.add(mesa);
         mesa.equals(this);
-    }
+    } */
 
     public List<Plato> obtenerMenu() {
         return menu.obtenerMenu();
@@ -49,6 +49,11 @@ public class Mesero extends Usuario {
 
     public List<Mesa> obtenerMesasAsignadas() {
         return mesasAsignadas;
+    }
+
+    public double obtenerTotalPedido(List<Plato> platos)
+    {
+        return manejoPedidos.calcularTotalPedido(platos);
     }
 }
 

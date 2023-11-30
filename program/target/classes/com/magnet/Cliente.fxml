@@ -33,11 +33,11 @@
             <ButtonBar prefHeight="40.0" prefWidth="609.0" BorderPane.alignment="CENTER" />
          </bottom>
          <left>
-            <TableView fx:id="tableView" prefHeight="400.0" prefWidth="302.0" BorderPane.alignment="CENTER">
+            <TableView fx:id="menuTableView" prefHeight="400.0" prefWidth="371.0" BorderPane.alignment="CENTER">
               <columns>
-                <TableColumn fx:id="idCollumn" prefWidth="75.0" text="ID" />
-                <TableColumn fx:id="platoColumn" prefWidth="75.0" text="PLATILLO" />
-                  <TableColumn fx:id="precioColumn" prefWidth="75.0" text="PRECIO" />
+                  <TableColumn fx:id="idColumn" prefWidth="75.0" text="ID" />
+                  <TableColumn fx:id="platoColumn" prefWidth="110.0" text="PLATILLO" />
+                  <TableColumn fx:id="precioColumn" prefWidth="185.0" text="PRECIO" />
               </columns>
             </TableView>
          </left>
@@ -47,12 +47,19 @@
                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="110.0" prefWidth="185.0">
                      <children>
                         <Label layoutX="14.0" text="Seleccione los platillos" />
-                        <Button fx:id="addButton" layoutX="16.0" layoutY="35.0" minHeight="17.0" minWidth="42.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="72.0" text="Agregar" />
+                        <Button fx:id="addButton" layoutX="94.0" layoutY="41.0" minHeight="17.0" minWidth="42.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="72.0" text="Agregar" />
                      </children>
                   </AnchorPane>
                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="267.0" prefWidth="185.0">
                      <children>
-                      <Button fx:id="finalizar" layoutX="29.0" layoutY="83.0" minWidth="49.0" mnemonicParsing="false" prefHeight="30.0" text="Finalizar" />
+                      <Button fx:id="finalizar" layoutX="98.0" layoutY="247.0" minWidth="49.0" mnemonicParsing="false" prefHeight="30.0" text="Finalizar" />
+                        <TableView fx:id="pedidoTableView" layoutX="23.0" layoutY="14.0" prefHeight="216.0" prefWidth="214.0">
+                          <columns>
+                            <TableColumn fx:id="idPedidoPlatoColumn" prefWidth="75.0" />
+                            <TableColumn fx:id="pedidoPlatoColumn" prefWidth="75.0" text="Plato" />
+                              <TableColumn fx:id="pedidoPrecioColumn" prefWidth="75.0" text="Precio" />
+                          </columns>
+                        </TableView>
                      </children>
                   </AnchorPane>
               </items>

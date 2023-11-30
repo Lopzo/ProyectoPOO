@@ -2,6 +2,7 @@ package com.magnet;
 
 import java.util.List;
 
+import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 
@@ -10,6 +11,7 @@ public class Pedido {
     private int mesa;
     private List<Plato> platos;
     private String estado;
+    private double Total;
 
     public Pedido(int idPedido,int mesa, List<Plato> platos, String estado) {
         this.idPedido = idPedido;
@@ -76,6 +78,12 @@ public class Pedido {
 
     public SimpleStringProperty estadoProperty() {
         return new SimpleStringProperty(estado);
+    }
+
+    public SimpleDoubleProperty totalProperty()
+    {
+        
+        return new SimpleDoubleProperty(Total);
     }
 
 }

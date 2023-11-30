@@ -54,7 +54,8 @@ public class App extends Application {
 
     private void loadAndShowView(String viewName) throws IOException {
         // Crear la escena principal
-        scene = new Scene(loadFXML(viewName), 640, 480);
+        scene = new Scene(loadFXML(viewName), 700, 500);
+        setRoot(viewName);
     }
 
     static void setRoot(String fxml) throws IOException {

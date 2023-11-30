@@ -1,5 +1,6 @@
 package com.magnet;
 
+import java.io.IOException;
 import java.util.List;
 
 import javafx.collections.FXCollections;
@@ -8,6 +9,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 import javafx.scene.control.TableColumn;
 
 public class MeserosController{
@@ -25,10 +27,10 @@ public class MeserosController{
     private TableColumn<Pedido, String> estadoColumn;
 
     @FXML
-    private TableColumn<Pedido, String> precioTotalColumn;
+    private Label opcionesLabel;
 
     @FXML
-    private Label opcionesLabel;
+    private Label totalLabel;
 
     @FXML
     private Button verPedidoButton;
@@ -51,20 +53,24 @@ public class MeserosController{
     @FXML
     private TableColumn<Plato, String> precioColumn;
     
+    @FXML 
+    private TextField totalField;
+
     private Mesero mesero;
 
     @FXML
-    private void initialize() {
+    private void initialize() throws IOException{
         inicializarMesero();
+
         idColumn.setCellValueFactory(cellData -> cellData.getValue().idPedidoProperty().asObject());
         mesaColumn.setCellValueFactory(cellData -> cellData.getValue().mesaProperty().asObject());
         estadoColumn.setCellValueFactory(cellData -> cellData.getValue().estadoProperty());
-        
+
         verPedidoButton.setOnAction(event -> verDetallesPedido());
         entregarCocineroButton.setOnAction(event -> entregarPedidoCocinero());
         entregarCocineroButton.setOnAction(event -> entregaPedidoCliente());
 
-        cargarDatosPedido();
+        cargarDatosPedidos();
     }
 
     private void inicializarMesero()
@@ -72,7 +78,8 @@ public class MeserosController{
         mesero = Login.getMesero();
     };
 
-      private void cargarDatosPedido()
+     
+    private void cargarDatosPedidos()
     {
         List<Pedido> listaPedidos = mesero.obtenerListaPedidos();
         ObservableList<Pedido> pedidosObservable = FXCollections.observableArrayList(listaPedidos);
@@ -83,6 +90,9 @@ public class MeserosController{
     private void cargarDatosDetallesPedido(Pedido pedido)
     {   
         List<Plato> listPlatos = pedido.getPlatos();
+        
+        double totalPedido = mesero.obtenerTotalPedido(listPlatos);
+        totalField.setText(String.valueOf(totalPedido));
 
         detallePedidoTableView.getItems().clear();
         detallePedidoTableView.getItems().addAll(listPlatos);
@@ -91,6 +101,7 @@ public class MeserosController{
     private void verDetallesPedido()
     {
         Pedido pedidoSeleccionado= pedidoTableView.getSelectionModel().getSelectedItem();
+     
         if(pedidoSeleccionado != null)
         {
             cargarDatosDetallesPedido(pedidoSeleccionado);
