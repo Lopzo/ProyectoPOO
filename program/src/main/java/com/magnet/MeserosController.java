@@ -45,13 +45,13 @@ public class MeserosController{
     private TableView<Plato> detallePedidoTableView;
 
     @FXML
-    private TableColumn<Plato, String> idDetalleColumn;
+    private TableColumn<Plato, Integer> idDetalleColumn;
 
     @FXML
     private TableColumn<Plato, String> platoColumn;
 
     @FXML
-    private TableColumn<Plato, String> precioColumn;
+    private TableColumn<Plato, Double> precioColumn;
     
     @FXML 
     private TextField totalField;
@@ -59,16 +59,20 @@ public class MeserosController{
     private Mesero mesero;
 
     @FXML
-    private void initialize() throws IOException{
+    private void initialize() {
         inicializarMesero();
 
         idColumn.setCellValueFactory(cellData -> cellData.getValue().idPedidoProperty().asObject());
         mesaColumn.setCellValueFactory(cellData -> cellData.getValue().mesaProperty().asObject());
         estadoColumn.setCellValueFactory(cellData -> cellData.getValue().estadoProperty());
 
+        idDetalleColumn.setCellValueFactory(cellData -> cellData.getValue().numPedidoProperty().asObject());
+        platoColumn.setCellValueFactory(cellData -> cellData.getValue().platoProperty());
+        precioColumn.setCellValueFactory(cellData -> cellData.getValue().precioProperty().asObject());
+
         verPedidoButton.setOnAction(event -> verDetallesPedido());
         entregarCocineroButton.setOnAction(event -> entregarPedidoCocinero());
-        entregarCocineroButton.setOnAction(event -> entregaPedidoCliente());
+        entregarClienteButton.setOnAction(event -> entregaPedidoCliente());
 
         cargarDatosPedidos();
     }
@@ -93,9 +97,9 @@ public class MeserosController{
         
         double totalPedido = mesero.obtenerTotalPedido(listPlatos);
         totalField.setText(String.valueOf(totalPedido));
-
+        ObservableList<Plato> platosObservable = FXCollections.observableArrayList(listPlatos);
         detallePedidoTableView.getItems().clear();
-        detallePedidoTableView.getItems().addAll(listPlatos);
+        detallePedidoTableView.setItems(platosObservable );
     }
 
     private void verDetallesPedido()

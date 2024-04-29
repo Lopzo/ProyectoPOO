@@ -1,4 +1,0 @@
---patch-module
-com.magnet=_
---add-reads
-com.magnet=ALL-UNNAMED
